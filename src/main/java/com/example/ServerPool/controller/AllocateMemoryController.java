@@ -1,5 +1,4 @@
 package com.example.ServerPool.controller;
-
 import com.example.ServerPool.model.Server;
 import com.example.ServerPool.service.ResourceManagementService;
 import org.springframework.beans.factory.annotation.Autowired;

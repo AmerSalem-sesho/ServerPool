@@ -1,12 +1,10 @@
 package com.example.ServerPool.service;
 
-
 import com.example.ServerPool.model.Server;
 import com.example.ServerPool.response.AllocateMemoryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.aerospike.repository.AerospikeRepository;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +14,6 @@ public class ResourceManagementService {
     private final int maxServerCapacity = 100;
     @Autowired
     private AerospikeRepository repository;
-    private List<Server> servers = new ArrayList<>();
 
     public Server getServerById(int id) {
         return (Server) repository.findById(id).orElse(null);
@@ -46,7 +43,6 @@ public class ResourceManagementService {
                 }
                 lNewServer.setStatus("active");
                 lNewServer.setAllocatedMemory(memory);
-                servers.add(lNewServer);
                 message.setMessage("user allocated " + memory + "GB of memory from server: " + lNewServer.getId());
                 repository.save(lNewServer);
             }
