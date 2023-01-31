@@ -1,5 +1,6 @@
 package com.example.ServerPool.service;
 
+import com.example.ServerPool.enums.Status;
 import com.example.ServerPool.model.Server;
 import com.example.ServerPool.response.AllocateMemoryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class ResourceManagementService
 
                 Server lNewServer = new Server(lServerId,
                         "server" + lServerId, MaxServerCapacity,
-                        0, "Creating");
+                        0, Status.Creating.name());
                 try
                 {
                     Thread.sleep(2000);
@@ -70,7 +71,7 @@ public class ResourceManagementService
                 {
                     System.out.println(e.getMessage());
                 }
-                lNewServer.setStatus("active");
+                lNewServer.setStatus(Status.Active.name());
                 lNewServer.setAllocatedMemory(memory);
 
             message.setMessage("user allocated " + memory
@@ -89,7 +90,7 @@ public class ResourceManagementService
                 .collect(Collectors.toList());
         for (Server server : lServers)
         {
-            if ((server.getStatus().equals("active")))
+            if ((server.getStatus().equals(Status.Active.name())))
             {
                 return server;
             }
